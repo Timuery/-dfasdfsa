@@ -55,3 +55,17 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "???"))
         self.pushButton_2.setText(_translate("MainWindow", "Ок"))
         self.pushButton.setText(_translate("MainWindow", "Отмена"))
+
+        
+class MyWidget(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyWidget()
+    ex.show()
+    sys.exit(app.exec_())
