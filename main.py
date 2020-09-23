@@ -1,4 +1,6 @@
 import sys
+import random
+import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
@@ -99,8 +101,7 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
     ########################
-    import random
-import time
+
 
 
 class Item:
@@ -152,14 +153,14 @@ class Inventory:
 
     def add_item(self, item):
         self.items.append(item)
-            
+
     def info(self):
         return self.items
-        
+
     # Активный инвентарь заведующий для использования игроком.
     def get_real_inventory(self):
         self.real_items.append([self.items[i]['id'], self.items[i]['name']])
-            
+
     def open(self):
         if len(self.real_items) <= 0:
             print(Messages.text_play(6))
@@ -167,21 +168,19 @@ class Inventory:
         else:
             print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
             for i in range(len(self.real_items)):
-                 print(f"{i + 1} |: {self.real_items[i][1]} меч.\t\t\t\t\t :|")
+                print(f"{i + 1} |: {self.real_items[i][1]} меч.\t\t\t\t\t :|")
             print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
             print(f"{i + 2}: Выбросить\t\t\t\t\t\t :|")
             print(f"{i + 3}: Использовать \t\t\t\t\t :|")
             print(f"{i + 4}: Выход\t\t\t\t\t\t :|")
             print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
-            
 
-    def delete(self):   
+    def delete(self):
         delete = 0
         while delete <= 0:
-            
             delete = int(input())
         del self.real_items[delete - 1]
-        print("-" * (len(Messages.get_message_by_id(0)) + 4),":|")
+        print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
         print(f"Был удалён предмет под номером {delete} \t\t\t :|")
         print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
 
@@ -190,8 +189,10 @@ class Entity:
     def __init__(self, name, level):
         self.name = name
         self.level = level
+
     def get_name(self):
         return self.name
+
     def get_level(self):
         return self.level
 
@@ -199,13 +200,14 @@ class Entity:
 class Enemy(Entity):
     def __init__(self, name, level):
         super(Enemy, self).__init__(name, level)
-        
+
     def start_battle(self):
         pass
 
     def end_battle(self):
         print(f"Вы победили врага {enemy.get_name()}", "\t\t\t\t :|")
         print(f"Вы получили опыт: {self.xp}")
+
     def battle(self):
         pass
 
@@ -217,8 +219,9 @@ class Messages:
                 'Что вы выберите из вариантов действий?\t\t\t :|',
                 'Информатор: Напишите номер для удаления предмета.\t\t :|',
                 'Информатор: Ваш инвентарь забит\t\t\t\t :|',
-                'Информатор: Ваш инвентарь пуст\t\t\t\t :|',]
+                'Информатор: Ваш инвентарь пуст\t\t\t\t :|', ]
     battle_buttons = ["Атаковать", "Сбежать"]
+
     @classmethod
     def start_message(cls):
         for i in range(3):
@@ -240,22 +243,25 @@ class Messages:
     @classmethod
     def text_play(cls, number):
         return cls.messages[number]
-    
-                    
+
 
 class Choice:
     game_enter = ''
+
     def choice_in_battles(self):
         while type(self.game_enter) != int:
             self.game_enter = input()
-            
+
             if type(self.game_enter) != int:
                 print('Просим вводить только числа.\t\t\t\t :|')
                 print("-" * (len(Messages.get_message_by_id(0)) + 4), ":|")
+
     def choice_in_inventory(self):
         print(Messages.text_play())
+
     def choice_create(self):
         pass
+
     def choice_event(self):
         pass
 
@@ -263,18 +269,17 @@ class Choice:
 class Battle:
     def __init__(self):
         pass
-    
+
     def start_battle(self):
         pass
-    
+
     def end_battle(self):
         pass
 
 
-    
 def start():
     Messages.start_message()
-    
+
 
 if __name__ == "__main__":
     inventory = Inventory()
@@ -286,13 +291,15 @@ if __name__ == "__main__":
         inventory.add_item(weapon)
         last_id += 1
     game = True
-    
+
 while game == True:
     start()
     game = False
     inventory.open()
     inventory.get_real_inventory()
     inventory.open()
+
+
 def enTer(max_enter):
     enterpritator = input()
     if enterpritator > max_enter:
